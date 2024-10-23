@@ -39,4 +39,22 @@ steps:
           configVarBlock: ${pipeline.variables.ConfigVars}
 
 
-          
+pipeline:
+  name: MyPipeline
+  identifier: my_pipeline
+  variables:
+    - name: ConfigVars
+      type: Secret
+      value: "<+secrets.getValue('vaultSecretPath')>"
+
+
+pipeline:
+  name: MyPipeline
+  identifier: my_pipeline
+  variables:
+    - name: ConfigVars
+      type: Secret
+      value: "<+secrets.getValue('configVarBlock')>"
+
+
+      
