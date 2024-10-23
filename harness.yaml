@@ -1,0 +1,42 @@
+steps:
+  - step:
+      type: ShellScript
+      name: Update Web Config
+      spec:
+        shell: Powershell
+        source:
+          script: |
+            .\Update-WebConfig.ps1
+        environmentVariables:
+          configVar_ApiKey: ${pipeline.variables.ApiKey}
+          configVar_DefaultConnection: ${pipeline.variables.DefaultConnection}
+
+
+pipeline:
+  name: MyPipeline
+  identifier: my_pipeline
+  variables:
+    - name: ConfigVars
+      type: String
+      value: |
+        {
+          "ApiKey": "MyApiKeyValue",
+          "DefaultConnection": "Server=myserver;Database=mydb;User Id=myuser;Password=mypassword;"
+        }
+
+    
+steps:
+  - step:
+      type: ShellScript
+      name: Update Web Config
+      identifier: update_web_config
+      spec:
+        shell: Powershell
+        source:
+          script: |
+            .\Update-WebConfig.ps1
+        environmentVariables:
+          configVarBlock: ${pipeline.variables.ConfigVars}
+
+
+          
